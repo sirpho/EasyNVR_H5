@@ -2,20 +2,24 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { Avatar, Input, Swiper, SwiperItem, Toast, Skeleton } from '@nutui/nutui'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import { Avatar, Icon, Input, Swiper, SwiperItem, Toast, Skeleton } from '@nutui/nutui'
 
 import App from './App.vue'
 import router from './router'
 
 const app = createApp(App)
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 
 app.use(Avatar)
+app.use(Icon)
 app.use(Input)
 app.use(Swiper)
 app.use(SwiperItem)
 app.use(Toast)
 app.use(Skeleton)
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 
 app.mount('#app')

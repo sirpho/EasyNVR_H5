@@ -1,5 +1,6 @@
 <template>
-  <view>
+  <div class="page-content">
+    <Navigation title="录像" />
     <div>
       <nut-skeleton v-if="loading" width="100%" height="15px" title animated row="5" />
       <div v-else :class="`grid ${gridCols} gap-2 p-3 items-stretch`">
@@ -12,7 +13,7 @@
         />
       </div>
     </div>
-  </view>
+  </div>
 </template>
 
 <script setup>
@@ -20,6 +21,7 @@ import { onMounted, ref } from 'vue'
 import RecordCard from './components/RecordCard.vue'
 import { findRecords } from '@/services/device.ts'
 import { useUserStore } from '@/stores/modules/user.ts'
+import Navigation from '@/components/navigation.vue'
 
 // 设备列表
 const recordData = ref([])

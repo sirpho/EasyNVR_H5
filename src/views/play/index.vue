@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <div class="page-content">
+    <Navigation :title="state.name" allowBack />
     <div id="video-container" class="video-container"></div>
 
     <div class="content">
@@ -11,7 +12,7 @@
             @pointerup="handlePointerUp('TOP')"
             @pointercancel="handlePointerUp('TOP')"
           >
-            <img src="https://www.easynvr.com/public/svg/up.svg" mode="widthFix"  alt=""/>
+            <img src="https://www.easynvr.com/public/svg/up.svg" mode="widthFix" alt="" />
           </div>
         </div>
         <div class="row">
@@ -54,6 +55,7 @@ import { controlDeviceStart, controlDeviceStop } from '@/services/device.ts'
 import { useRoute } from 'vue-router'
 import { splicBaseUrlToRemoteUrl } from '@/utils/index.ts'
 import flvjs from 'flv.js'
+import Navigation from '@/components/navigation.vue'
 
 const videoRef = ref(null)
 let flvPlayer = null
@@ -63,6 +65,7 @@ const isLoading = ref(false)
 const state = reactive({
   url: '',
   channelId: '',
+  name: '',
   deviceId: '',
   remoteIndex: 0,
 })
@@ -73,6 +76,7 @@ const initState = () => {
   state.url = splicBaseUrlToRemoteUrl(decodeURIComponent(route.query.url || ''), remoteIndex) || ''
   state.channelId = route.query.channelId || ''
   state.deviceId = route.query.deviceId || ''
+  state.name = route.query.name || ''
   state.remoteIndex = remoteIndex
 }
 
@@ -229,11 +233,9 @@ const stopPTZControl = (speed, direction) => {
 </script>
 
 <style scoped>
-.container {
-  max-width: 960px;
+.page-content {
   margin: 0 auto;
   background-color: #f5f5f5;
-  min-height: 100vh;
 }
 .video-container {
   margin: 0 auto;

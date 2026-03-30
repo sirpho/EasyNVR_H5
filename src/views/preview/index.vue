@@ -1,5 +1,8 @@
 <template>
-  <view>
+  <div class="page-content">
+    <Navigation title="预览">
+      <nut-icon name="retweet" @click="handleSwitch"></nut-icon>
+    </Navigation>
     <div>
       <nut-skeleton v-if="loading" width="100%" height="15px" title animated row="5" />
       <div v-else :class="`grid ${gridCols} gap-2 p-3 items-stretch`">
@@ -11,7 +14,7 @@
         />
       </div>
     </div>
-  </view>
+  </div>
 </template>
 
 <script setup>
@@ -19,17 +22,17 @@ import { onMounted, ref, reactive } from 'vue'
 import ChannelCard from './components/ChannelCard.vue'
 import { findChannels, fetchDevice } from '@/services/device.ts'
 import { useUserStore } from '@/stores/modules/user.ts'
+import Navigation from '@/components/navigation.vue'
 
 // 设备列表
 const deviceList = ref([])
 // 通道列表
 const channelList = ref([])
 
-const gridCols = ref('grid-cols-2')
-
 const loading = ref(false) // 初次加载骨架屏状态
 const refresherTriggered = ref(false)
 const userStore = useUserStore()
+const gridCols = ref(userStore.getGridClos())
 
 // 分页参数
 const pagination = reactive({
@@ -112,5 +115,6 @@ const handleSwitch = () => {
   } else {
     gridCols.value = 'grid-cols-2'
   }
+  userStore.setGridClos(gridCols.value)
 }
 </script>

@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { defineProps, ref } from 'vue'
+import { ref } from 'vue'
 import Snapshot from '@/components/snapshot.vue'
 import { getLive } from '@/services/device.ts'
 import { useRouter } from 'vue-router'
@@ -53,6 +53,7 @@ const handleClick = async () => {
         channelId: props.item.id,
         deviceId: props.deviceId,
         remoteIndex: props.item.remoteIndex,
+        name: props.item.deviceName || props.item.name || props.item.id,
       },
     })
   } catch (error) {

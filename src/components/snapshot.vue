@@ -1,9 +1,9 @@
 <template>
-  <img class="w-full h-full" mode="aspectFill" :src="imageData" alt=""></img>
+  <img class="w-full h-full" mode="aspectFill" :src="imageData" alt="" />
 </template>
 
 <script setup>
-import { defineProps, ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { getChannelSnapshot } from '@/services/device.ts'
 import { SplicBase64String } from '@/utils/index.ts'
 import { useUserStore } from '@/stores/modules/user.ts'

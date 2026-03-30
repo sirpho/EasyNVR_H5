@@ -27,6 +27,7 @@ const route = useRoute()
 nav {
   width: 100%;
   position: fixed;
+  background: #fff;
   bottom: 0;
   left: 0;
   right: 0;
@@ -40,6 +41,15 @@ nav {
 
 .link {
   width: 33%;
+  border-right: 1px solid #2b2b2b;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link:last-child {
+  border-right: none;
 }
 
 .menu-wrapper {
@@ -48,5 +58,9 @@ nav {
   gap: 3px;
   align-items: center;
   justify-content: center;
+}
+
+.router-link-active {
+  color: #16a34a;
 }
 </style>

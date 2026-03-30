@@ -18,7 +18,6 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
 import Snapshot from '@/components/snapshot.vue'
 import { useRouter } from 'vue-router'
 
@@ -40,6 +39,7 @@ const handleClick = () => {
       deviceId: props.item.device_id,
       channelId: props.item.channel_id,
       remoteIndex: props.remoteIndex,
+      name: props.item.device_name || props.item.name || props.item.channel_id,
     },
   })
 }

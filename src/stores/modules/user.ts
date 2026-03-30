@@ -1,12 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-interface UserState {
-  tokenList: string[]
-  loginList: any[]
-  userList: any[]
-}
-
 export const useUserStore = defineStore(
   'user',
   () => {
@@ -14,6 +8,7 @@ export const useUserStore = defineStore(
     const tokenList = ref<string[]>([])
     const loginList = ref<any[]>([])
     const userList = ref<any[]>([])
+    const gridClos = ref<string>('grid-cols-2')
 
     const setTokenList = (newTokenList: string[]) => {
       tokenList.value = newTokenList
@@ -44,6 +39,14 @@ export const useUserStore = defineStore(
       return (loginList.value[index] || {}).url
     }
 
+    const setGridClos = (grid: string) => {
+      gridClos.value = grid
+    }
+
+    const getGridClos = () => {
+      return gridClos.value
+    }
+
     return {
       tokenList,
       loginList,
@@ -55,6 +58,8 @@ export const useUserStore = defineStore(
       setLoginList,
       getLoginList,
       setUserList,
+      setGridClos,
+      getGridClos,
     }
   },
   {

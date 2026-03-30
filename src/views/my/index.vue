@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="page-content">
+    <Navigation title="我的" />
     <div class="p-3">
       <!-- 顶部用户头像信息 -->
       <div class="p-3 bg-white rounded-lg mb-3">
@@ -19,7 +20,7 @@
 
         <div class="font-semibold text-xl">版本信息</div>
         <div class="text-sm text-gray-400 flex items-center my-1">
-          <span class="pr-1">APP版本 v{{ version }}</span>
+          <span class="pr-1">H5版本 v{{ version }}</span>
         </div>
       </div>
 
@@ -42,6 +43,7 @@ import { useUserStore } from '@/stores/modules/user.ts'
 import packageJSON from '../../../package.json'
 import { findVersion } from '@/services/device.ts'
 import { useRouter } from 'vue-router'
+import Navigation from '@/components/navigation.vue'
 
 const userStore = useUserStore()
 const userInfoList = ref([])

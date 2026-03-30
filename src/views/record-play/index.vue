@@ -1,8 +1,9 @@
 <template>
-  <view>
-    <view class="wrapper">
+  <div class="page-content">
+    <Navigation :title="state.name" allowBack />
+    <div class="wrapper">
       <!-- 视频区域 -->
-      <view class="video-container">
+      <div class="video-container">
         <video
           crossorigin="anonymous"
           :src="processedVideoUrl"
@@ -13,29 +14,29 @@
           @error="handleVideoError"
           @timeupdate="onTimeUpdate"
         ></video>
-      </view>
+      </div>
 
-      <view class="bottom-container">
+      <div class="bottom-container">
         <!-- 日历区域 -->
-        <view class="calendarContainer">
-          <view class="monthDropdown">
-            <view class="selected" @click="toggleDropdown"> {{ selectedMonth }}月 </view>
-            <view class="dropdownList" v-show="dropdownVisible">
-              <view v-for="year in years" :key="year">
-                <view
+        <div class="calendarContainer">
+          <div class="monthDropdown">
+            <div class="selected" @click="toggleDropdown">{{ selectedMonth }}月</div>
+            <div class="dropdownList" v-show="dropdownVisible">
+              <div v-for="year in years" :key="year">
+                <div
                   v-for="m in 12"
                   :key="year + '-' + m"
                   class="dropdownItem"
                   @click="selectMonth(year, m)"
                 >
                   {{ year % 100 }}年{{ m }}月
-                </view>
-              </view>
-            </view>
-          </view>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <view class="dateList">
-            <view
+          <div class="dateList">
+            <div
               v-for="item in sortedDateData"
               :key="item.value"
               class="dateItem"
@@ -43,12 +44,12 @@
               @click="selectDate(item)"
             >
               {{ item.name }}
-            </view>
-          </view>
-        </view>
+            </div>
+          </div>
+        </div>
 
         <!-- 时间轴区域 -->
-        <view class="timeline-wrapper">
+        <div class="timeline-wrapper">
           <div class="scroll-container" ref="scrollView" @click="handleContainerClick">
             <div class="timeline-content" :style="{ height: timelineHeight + 'px' }">
               <!-- 录像片段（最高层级，蓝色） -->
@@ -94,10 +95,10 @@
               </div>
             </div>
           </div>
-        </view>
-      </view>
-    </view>
-  </view>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -106,12 +107,14 @@ import { splicBaseUrlToRemoteUrl } from '@/utils/index.ts'
 import { findRecordDates, findRecordList, findRecordTimeLine } from '@/services/device.ts'
 import { useRoute } from 'vue-router'
 import dayjs from 'dayjs'
+import Navigation from '@/components/navigation.vue'
 
 const route = useRoute()
 
 const state = reactive({
   channelId: '',
   deviceId: '',
+  name: '',
   remoteIndex: 0,
 })
 
@@ -132,6 +135,7 @@ onMounted(() => {
   if (route.query) {
     state.channelId = route.query.channelId
     state.deviceId = route.query.deviceId
+    state.name = route.query.name
     state.remoteIndex = parseInt(route.query.remoteIndex || 0)
   }
   getRecordDays()
@@ -479,7 +483,7 @@ function calculateSegments(data) {
 .wrapper {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 
