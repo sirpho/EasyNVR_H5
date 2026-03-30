@@ -39,4 +39,19 @@ npm run dev
 
 ```sh
 npm run build
+
+tar -a -c -f C:\document\sirpho\EasyNVR_H5\dist\dist.zip --exclude=dist.zip -C C:\document\sirpho\EasyNVR_H5\dist .
+
+scp "C:\document\sirpho\EasyNVR_H5\dist\dist.zip" root@www.sirpho.top:/var/www/html/nvr
+
+Remove-Item -Path "C:\document\sirpho\EasyNVR_H5\dist" -Recurse -Force
+
+ssh root@www.sirpho.top
+
+cd /var/www/html/nvr
+rm -rf assets  favicon.ico  icon  index.html  logo.png  tailwind.css
+unzip dist.zip
+rm -rf dist.zip
+exit
+
 ```

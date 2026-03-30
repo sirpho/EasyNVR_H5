@@ -34,11 +34,12 @@ const handleBack = () => {
   padding-right: 32px;
   height: 50px;
   font-weight: bold;
-  position: absolute;
+  position: fixed;
   z-index: 2;
   top: 0;
   left: 0;
   right: 0;
+  border-bottom: 1px solid #2b2b2b;
 }
 .nut-icon-left {
   position: absolute;
@@ -53,7 +54,7 @@ const handleBack = () => {
   transform: translateY(-50%);
   height: 100%;
   gap: 5px;
-  
+
   display: flex;
   align-items: center;
 }

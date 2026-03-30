@@ -59,6 +59,9 @@ onMounted(() => {
 // 获取用户信息
 const findUserInfo = async () => {
   const list = userStore.getLoginList()
+  if (list.length <= 0) {
+    handeLogout()
+  }
 
   for (const item of list) {
     const res = await findVersion(item.remoteIndex).catch((err) => {
@@ -70,7 +73,6 @@ const findUserInfo = async () => {
 }
 
 const handeLogout = () => {
-  userStore.clearToken()
   userStore.clearToken()
   router.replace('/login')
 }

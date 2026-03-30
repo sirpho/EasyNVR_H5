@@ -23,6 +23,7 @@ import ChannelCard from './components/ChannelCard.vue'
 import { findChannels, fetchDevice } from '@/services/device.ts'
 import { useUserStore } from '@/stores/modules/user.ts'
 import Navigation from '@/components/navigation.vue'
+import router from '@/router/index.ts'
 
 // 设备列表
 const deviceList = ref([])
@@ -62,6 +63,11 @@ const onRefresh = async () => {
 const findDeviceList = async () => {
   loading.value = true
   const loginList = userStore.getLoginList()
+  if (loginList.length <= 0) {
+    userStore.clearToken()
+    await router.replace('/login')
+    return
+  }
   const itemList = []
 
   for (const item of loginList) {

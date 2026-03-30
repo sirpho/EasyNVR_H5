@@ -2,6 +2,7 @@
   <div class="page-content">
     <Navigation :title="state.name" allowBack />
     <div id="video-container" class="video-container"></div>
+    <div>{{ errmessage }}</div>
 
     <div class="content">
       <div class="steering">
@@ -61,6 +62,7 @@ const videoRef = ref(null)
 let flvPlayer = null
 const retryCount = ref(0)
 const isLoading = ref(false)
+const errmessage = ref('')
 
 const state = reactive({
   url: '',
@@ -112,8 +114,9 @@ const createVideoElement = () => {
 const initFlvPlayer = async () => {
   if (!state.url) return
   if (isLoading.value) return
-  if (!flvjs || !flvjs.isSupported()) {
+  if (!flvjs.isSupported()) {
     console.error('不支持FLV播放')
+    errmessage.value = '不支持FLV播放'
     return
   }
 
@@ -169,8 +172,10 @@ const initFlvPlayer = async () => {
 // 错误处理（防崩溃）
 const handleVideoError = (err) => {
   console.error('播放错误', err)
+  errmessage.value += '播放错误' + err.message
   if (retryCount.value >= 3) {
     console.error('播放失败，请检查视频地址是否为FLV格式')
+    errmessage.value += '播放失败，请检查视频地址是否为FLV格式'
     retryCount.value = 0
     return
   }

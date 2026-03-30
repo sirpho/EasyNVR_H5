@@ -22,6 +22,7 @@ import RecordCard from './components/RecordCard.vue'
 import { findRecords } from '@/services/device.ts'
 import { useUserStore } from '@/stores/modules/user.ts'
 import Navigation from '@/components/navigation.vue'
+import router from '@/router/index.ts'
 
 // 设备列表
 const recordData = ref([])
@@ -49,6 +50,11 @@ const onRefresh = async () => {
 const findRecordList = async () => {
   loading.value = true
   const loginList = userStore.getLoginList()
+  if (loginList.length <= 0) {
+    userStore.clearToken()
+    await router.replace('/login')
+    return
+  }
   const itemList = []
 
   for (const item of loginList) {
