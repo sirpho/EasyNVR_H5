@@ -6,7 +6,7 @@
 import { defineProps, ref, watch, onMounted, onUnmounted } from 'vue'
 import { getChannelSnapshot } from '@/services/device.ts'
 import { SplicBase64String } from '@/utils/index.ts'
-import { useUserStoreWithOut } from '@/stores/modules/user.ts'
+import { useUserStore } from '@/stores/modules/user.ts'
 const props = defineProps({
   id: {
     type: String,
@@ -21,12 +21,12 @@ const props = defineProps({
     default: 0,
   },
 })
-const user = useUserStoreWithOut()
+const userStore = useUserStore()
 
 
 let timer = ref(null)
 
-const imageData = ref(`${user.getRemoteUrl(props.remoteIndex)}/cloud/assets/img/noImg.png`)
+const imageData = ref(`${userStore.getRemoteUrl(props.remoteIndex)}/cloud/assets/img/noImg.png`)
 
 const getSnapshotForChannel = () => {
   getChannelSnapshot(props.id, props.remoteIndex).then((res) => {

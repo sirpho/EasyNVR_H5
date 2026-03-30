@@ -10,10 +10,10 @@ const route = useRoute()
     <RouterLink class="link" to="/">
       <div class="menu-wrapper">预览</div>
     </RouterLink>
-    <RouterLink class="link" to="/about">
+    <RouterLink class="link" to="/record">
       <div class="menu-wrapper">录像</div>
     </RouterLink>
-    <RouterLink class="link" to="/about">
+    <RouterLink class="link" to="/my">
       <div class="menu-wrapper">我的</div>
     </RouterLink>
   </nav>
@@ -21,6 +21,7 @@ const route = useRoute()
 <style lang="scss">
 @import url('/tailwind.css');
 @import url('/icon/iconfont.css');
+@import 'style/common.css';
 </style>
 <style scoped>
 nav {

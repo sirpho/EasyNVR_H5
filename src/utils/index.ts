@@ -1,5 +1,5 @@
-import { useUserStoreWithOut } from '@/stores/modules/user.ts'
-const user = useUserStoreWithOut()
+import { useUserStore } from '@/stores/modules/user.ts'
+const userStore = useUserStore()
 
 //拼接base64 前缀
 export function SplicBase64String(data: string) {
@@ -7,10 +7,10 @@ export function SplicBase64String(data: string) {
 }
 
 // 替换 播放地址 域名
-export function SplicBaseUrlToRemoteUrl(url: string, index: number) {
+export function splicBaseUrlToRemoteUrl(url: string, index: number) {
   if (!url) return ''
 
-  const remoteUrl = user.getRemoteUrl(index)
+  const remoteUrl = userStore.getRemoteUrl(index)
 
   // 1. 完整 URL，替换域名部分
   if (/^https?:\/\//i.test(url)) {

@@ -1,6 +1,6 @@
 {
   "name": "easynvr-h5",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -17,6 +17,8 @@
     "@types/crypto-js": "^4.2.2",
     "axios": "^1.13.6",
     "crypto-js": "^4.2.0",
+    "dayjs": "^1.11.20",
+    "flv.js": "^1.6.2",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",
     "tailwindcss": "^4.2.2",

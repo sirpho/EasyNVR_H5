@@ -53,11 +53,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStoreWithOut } from '@/stores/modules/user.ts'
+import { useUserStore } from '@/stores/modules/user.ts'
 import { fetchLogin } from '@/services/login.ts'
 import { Toast } from '@nutui/nutui'
 
-const user = useUserStoreWithOut()
+const userStore = useUserStore()
 const router = useRouter()
 const formList = ref([
   {
@@ -74,12 +74,13 @@ const loading = ref(false)
 
 // 页面挂载时初始化表单数据
 onMounted(() => {
-  if (user.getTokenList[0]) {
+  if (userStore.getTokenList[0]) {
     router.replace('/')
   } else {
     // 从本地缓存加载登录信息到表单
-    if (user.loginList > 0) {
-      formList.value = [...user.loginList]
+    const loginList = userStore.getLoginList()
+    if (loginList.length > 0) {
+      formList.value = [...loginList]
     }
   }
 })
@@ -155,7 +156,7 @@ const login = async () => {
 
   loading.value = true
   // 保存当前表单的登录信息到本地
-  user.setLoginList(result)
+  userStore.setLoginList(result)
 
   const res = await Promise.all(result.map((item, index) => loginSingle(item, index)))
     .catch((err) => {
@@ -166,8 +167,8 @@ const login = async () => {
       loading.value = false
     })
   const tokenResult = res.map((item) => item.token)
-  user.setTokenList(tokenResult)
-  user.setUserList(
+  userStore.setTokenList(tokenResult)
+  userStore.setUserList(
     res.map((item, index) => ({
       ...item.user,
       url: result[index]?.url,

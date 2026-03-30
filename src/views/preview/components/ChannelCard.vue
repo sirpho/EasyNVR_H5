@@ -46,8 +46,15 @@ const handleClick = async () => {
   loading.value = true
   try {
     const url = await findUrl()
-    const navUrl = `/pages/play/div?url=${encodeURIComponent(url)}&channelId=${props.item.id}&deviceId=${props.deviceId}&remoteIndex=${props.item.remoteIndex}`
-    await router.push(navUrl)
+    await router.replace({
+      name: 'play',
+      query: {
+        url: encodeURIComponent(url),
+        channelId: props.item.id,
+        deviceId: props.deviceId,
+        remoteIndex: props.item.remoteIndex,
+      },
+    })
   } catch (error) {
     console.error('请求 Live 失败：', error)
     // 可在此处添加错误提示逻辑

@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import { store } from '@/stores'
-import { reactive, toRefs } from 'vue'
+import { ref } from 'vue'
 
 interface UserState {
   tokenList: string[]
@@ -8,48 +7,57 @@ interface UserState {
   userList: any[]
 }
 
-export const useUserStore = defineStore('user', () => {
-  const state = reactive<UserState>({
-    tokenList: [],
-    loginList: [],
-    userList: [],
-  })
+export const useUserStore = defineStore(
+  'user',
+  () => {
+    // 使用 ref 代替 reactive
+    const tokenList = ref<string[]>([])
+    const loginList = ref<any[]>([])
+    const userList = ref<any[]>([])
 
-  const setTokenList = (tokenList: string[]) => {
-    state.tokenList = tokenList
-  }
-  const setLoginList = (loginList: string[]) => {
-    state.loginList = loginList
-  }
-  const setUserList = (userList: string[]) => {
-    state.userList = userList
-  }
-  const clearToken = () => {
-    state.tokenList = []
-  }
-  const getTokenList = (index: number) => {
-    return state.tokenList[index]
-  }
-  const getLoginList = () => {
-    return state.loginList || []
-  }
-  const getRemoteUrl = (index: number) => {
-    return (state.loginList[index] || []).url
-  }
+    const setTokenList = (newTokenList: string[]) => {
+      tokenList.value = newTokenList
+    }
 
-  return {
-    ...toRefs(state),
-    setTokenList,
-    getTokenList,
-    clearToken,
-    getRemoteUrl,
-    setLoginList,
-    getLoginList,
-    setUserList,
-  }
-})
+    const setLoginList = (newLoginList: any[]) => {
+      loginList.value = newLoginList
+    }
 
-// Need to be used outside the setup
-export function useUserStoreWithOut() {
-  return useUserStore(store)
-}
+    const setUserList = (newUserList: any[]) => {
+      userList.value = newUserList
+    }
+
+    const clearToken = () => {
+      tokenList.value = []
+      userList.value = []
+    }
+
+    const getTokenList = (index: number) => {
+      return tokenList.value[index]
+    }
+
+    const getLoginList = () => {
+      return loginList.value || []
+    }
+
+    const getRemoteUrl = (index: number) => {
+      return (loginList.value[index] || {}).url
+    }
+
+    return {
+      tokenList,
+      loginList,
+      userList,
+      setTokenList,
+      getTokenList,
+      clearToken,
+      getRemoteUrl,
+      setLoginList,
+      getLoginList,
+      setUserList,
+    }
+  },
+  {
+    persist: true,
+  },
+)

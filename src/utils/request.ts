@@ -4,9 +4,10 @@ import type { Axios, AxiosPromise } from 'axios'
 import { tansParams } from '@sirpho/utils'
 import { AxiosCanceler } from './axios/axiosCancel'
 import { Toast } from '@nutui/nutui'
-import { useUserStoreWithOut } from '@/stores/modules/user.ts'
+import { useUserStore } from '@/stores/modules/user.ts'
 import { useRouter } from 'vue-router'
-const user= useUserStoreWithOut()
+
+const userStore = useUserStore()
 const router = useRouter()
 
 export interface CreateAxiosOptions extends AxiosRequestConfig {
@@ -38,7 +39,7 @@ const handleCode = (code: number, msg: string) => {
     switch (code) {
       case 401:
         Toast.text(msg || '登录已过期，请重新登录')
-        user.clearToken()
+        userStore.clearToken()
         await router.replace('/login')
         break
       default:
@@ -76,9 +77,9 @@ instance.interceptors.request.use(
       config.params = {}
       config.url = url
     }
-    config.url = user.getRemoteUrl(remoteIndex) + config.url
+    config.url = userStore.getRemoteUrl(remoteIndex) + config.url
 
-    config.headers['Authorization'] = `Bearer ${user.getTokenList(remoteIndex) || ''}`
+    config.headers['Authorization'] = `Bearer ${userStore.getTokenList(remoteIndex) || ''}`
     return config
   },
   (error: Error | AxiosError) => {
